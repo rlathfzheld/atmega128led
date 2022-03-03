@@ -1,0 +1,29 @@
+/*
+ * GccApplication1.c
+ *
+ * Created: 2022-03-02 오전 11:18:06
+ * Author : konyang
+ */ 
+
+#define F_CPU 16000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main(void)
+{
+    /* Replace with your application code */
+	
+	DDRA = 0xFF; 
+	PORTA = 0xFF; 
+
+	
+    while (1) 
+    {
+		PORTA = 0x02;
+		_delay_ms(500);
+		PORTA = 0x01;
+		_delay_ms(500);
+		
+    }
+}
+
