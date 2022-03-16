@@ -22,11 +22,26 @@ int main(void)
 	PORTA=0x00;
 	while(1)		// LED test
 	{
-		PORTA=(PORTA<<1)|0x01;	// PORTA 사용
+		for(int i=0;i<8;i++)
+		{
+			PORTA=(PORTA<<1)|0x01;
+			//Temp=(Temp<<1)|0x01;
+			//PORTA=Temp;
+			_delay_ms(500);
+		}
+		PORTA = 0x00;
+		for(int i=0;i<8;i++)
+		{
+			PORTA=(PORTA>>1)|0x80;
+			//Temp=(Temp>>1)|0x80;
+			//PORTA=Temp;
+			_delay_ms(500);
+		}
+//		PORTA=(PORTA<<1)|0x01;	// PORTA 사용
 
 //		Temp=(Temp<<1)|0x01;	// PORTA 사용
 //		PORTA=Temp;
-		_delay_ms(500);
+//		_delay_ms(500);
 
 //		if(Temp == 0xFF)	// 왼쪽으로 스캔 추가하기
 		if(PORTA == 0xFF)	// 왼쪽으로 스캔 추가하기
