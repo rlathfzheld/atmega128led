@@ -289,8 +289,8 @@ void InitPort(void)
   	PORTC= 0xFF;    // LCD control for PC0 ~ PC2,Output +5V of LCD VCC, VL at PC4 ~PC7
   	DDRC= 0xF0; 	  
     	    		    	
-	PORTD=0x00;		// for LCD DB0-DB7
-	DDRD= 0xFF;			
+	PORTF=0x00;		// for LCD DB0-DB7
+	DDRF= 0xFF;			
     
     
   	DDRE = 0xF0;	//input PE0~PE3 for key scan,using internal Pull-up  
@@ -305,7 +305,7 @@ void InitPort(void)
  	_delay_ms(1000);
 	 PORTA=0X00;
 	 PORTB=0X00;
-  	DDRF = 0xF8;	//16x2 LCD control : PF5=E, PF4=RW, PF3=RS
+  	DDRD = 0xF8;	//16x2 LCD control : PF5=E, PF4=RW, PF3=RS
 ///피에조 출력용
 	DDRG = 0xFF; 	//PG0:Beep Out
 	PORTG = 0xFE; 	//PG0:Init low	  

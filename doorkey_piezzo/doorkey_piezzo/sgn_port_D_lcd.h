@@ -6,15 +6,15 @@
 void lcd_busy(void)
 {   
 
-	DDRD = 0x00;
+	DDRF = 0x00;
 	do {    
 		PORTC &= 0xf6; 	// RS = 0    
 		PORTC |= 0xf2; 	// RW = 1   
 		PORTC |= 0xf4; 	// E = 1      
 	
-    } while(PIND & 0x80);	//'0'면 not_busy로 escape loop
+    } while(PINF & 0x80);	//'0'면 not_busy로 escape loop
      
-	DDRD = 0xff;	// confirm the output direction
+	DDRF = 0xff;	// confirm the output direction
 
 	_delay_ms(20);
 }
@@ -22,7 +22,7 @@ void lcd_busy(void)
 void lcd_command(unsigned char cmd)	// cmd=0x40 : DB7=0,DB6=1,DB5~DB0(CGRAM address)
 {
 	lcd_busy();			// if not busy,
-	PORTD = cmd;     		// 주소값을 D_port로 내보내고
+	PORTF = cmd;     		// 주소값을 D_port로 내보내고
 	PORTC &= 0xf6;    		// RS = 0 어드레스설정모드
 	PORTC &= 0xf5;    		// RW = 0 쓰기동작 
 	PORTC |= 0xf4;    		// E = 1 모듈 enable
@@ -32,11 +32,11 @@ void lcd_command(unsigned char cmd)	// cmd=0x40 : DB7=0,DB6=1,DB5~DB0(CGRAM addr
 
 void lcd_init()
 {
-	DDRD = 0xff;
+	DDRF = 0xff;
 	DDRC = DDRC | 0xff;		
 	_delay_ms(15);           	// 15ms 이상 대기          
 	
-	PORTD = 0b00110000;         // 평션 셋 : 0x3c, 8-bit 모드 ,F=1(5*8dot),2-lines    
+	PORTF = 0b00110000;         // 평션 셋 : 0x3c, 8-bit 모드 ,F=1(5*8dot),2-lines    
 	PORTC &= 0b11110000;    	// E,RW,RS = 0,0,0
 	_delay_us(4100);         	// 4.1ms 이상 대기  
 	PORTC &= 0b11110000;    	// E,RW,RS = 0,0,0
@@ -62,7 +62,7 @@ void lcd_data(unsigned char byte)
 	PORTC &= 0b11110101; 		// RW=0 
 	PORTC |= 0b11110100; 		// E=1 
 	_delay_us(50); 			// 일정시간 시간지연 
-	PORTD = byte;   
+	PORTF = byte;   
 	_delay_us(50); 			// 일정시간 시간지연 
 	PORTC &= 0b11110011; 		// E=0, LCD 라이트 타이밍에 따라 E=1 -> 0  
     	_delay_ms(3);        
